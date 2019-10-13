@@ -1,0 +1,17 @@
+language: minimal
+
+services:
+  - docker
+
+script:
+  - 'docker run --rm -v "$(pwd):/src" masifupgrader/package-factory'
+
+deploy:
+  provider: releases
+  api_key:
+    secure: LbjHlXgx25uJ8tpLwutQ5Ic4K0xGXWyqN7pjdWnMnCCTd8fkxgXT9d+ziTFxtzTYMWX43Qk3lv8CEGoa4ptA9+Zrn8czbImQAzl8Qq/3RfwDTFVHY4WJgNAEnL3jhjLcjghyHr+3oiVQVhn7RWL18TXf6l5RjQamB1fgKEFZNRnvshkChsCKS1f8GCe/92rqCty0Z/Kq10GsR4MSFbzg8pMzpfCAwj9wFRLpjec4LiJJ0MoGQEcydWkrqYfTLyWMGm5gJ7+88N/vJuJGBmEozYSUvV8lVC+WZgdzaR8LO2875HIUj6WGqfF0uhmTxh9PPesMgUZ21yan+efkwh0E4ZFqb1kJx8udAvv42wV2nAWxbt4NwzzQMVQJUO9VaRIMvBSqSn/fFPmpBgrt6r4w8XSUPZ6V0j5NoMz9tmemEj8fHDfSxsyuDVPizYApKH2JQO9Ix0NlMaXl0XuJio+kqfh3v4EEjxvRlPpygzQ1UTYLx4yPOcO5GnVErN9W3/7KscN7M2nsbyA0fB/VMRKZdLZz6Si92XkdJNec437vf41v4H9qcwg/1XWviiCqnmE2BRhoQNdkjDJsXltCszOcUjuHeV+VxgRRlgy7mtqhJJQa6TFhGFsePTHxDt95yqUENb5tNFrbuUmquP9s1M9o7Igixqw2WPj66gyeXQEjeM4=
+  file_glob: true
+  file: check_*.deb
+  skip_cleanup: true
+  on:
+    tags: true
