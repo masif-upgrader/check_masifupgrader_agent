@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -15,6 +16,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -220,6 +223,52 @@ func checkMasifupgraderAgent() (output string, perfdata PerfdataCollection, errs
 				Min:   OptionalNumber{true, 0},
 			})
 		}
+	}
+
+	var failedThresholds []*Perfdata = nil
+
+	for i := range perfdata {
+		if pd := &perfdata[i]; pd.GetStatus() != Ok {
+			failedThresholds = append(failedThresholds, pd)
+		}
+	}
+
+	if failedThresholds == nil {
+		output = `<p style="color: #070;">OK</p>`
+	} else {
+		sort.Slice(failedThresholds, func(i, j int) bool {
+			lhs := failedThresholds[i]
+			rhs := failedThresholds[j]
+
+			lhss := lhs.GetStatus()
+			rhss := rhs.GetStatus()
+
+			if lhss == rhss {
+				return lhs.Label < rhs.Label
+			} else {
+				return lhss > rhss
+			}
+		})
+
+		var out bytes.Buffer
+
+		out.Write([]byte(`<p><b>Some threshold assertions failed:</b></p><ul>`))
+
+		colors := map[PerfdataStatus]string{Warning: "770", Critical: "700"}
+
+		for _, ft := range failedThresholds {
+			fmt.Fprintf(
+				&out,
+				`<li style="color: #%s;">%s = %s</li>`,
+				colors[ft.GetStatus()],
+				ft.Label,
+				strconv.FormatFloat(ft.Value, 'f', -1, 64),
+			)
+		}
+
+		out.Write([]byte(`</ul>`))
+
+		output = out.String()
 	}
 
 	return
