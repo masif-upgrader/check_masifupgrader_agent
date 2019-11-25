@@ -60,8 +60,6 @@ export PKG_NAME="check_masifupgrader_agent"
 mkdir -p pkgroot/usr/lib/nagios/plugins
 
 
-go generate
-
 #     LSBDISTID DEB_ARCH GO_ARCH  GO_ENV
 
 mkDeb Debian    amd64    amd64    GO386=387
