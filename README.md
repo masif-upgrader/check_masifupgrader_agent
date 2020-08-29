@@ -71,8 +71,8 @@ Limitations:
 
 #### Icinga 2
 
-This repository ships the [check command definition]
-as well as a [service template] and [host example] for [Icinga 2].
+The [Debian packages] ship the [check command definition] for [Icinga 2].
+This repository ships a [service template] and a [host example] as well.
 
 The service definition will work in both correctly set up [Icinga 2 clusters]
 and Icinga 2 instances not being part of any cluster
@@ -82,9 +82,9 @@ as long as the [hosts] are named after the [endpoints].
 [Debian packages]: https://github.com/masif-upgrader/check_masifupgrader_agent/releases
 [Nagio$ check plugin API]: https://nagios-plugins.org/doc/guidelines.html#AEN78
 [check command definition]: ./icinga2/check_masifupgrader_agent.conf
+[Icinga 2]: https://www.icinga.com/docs/icinga2/latest/doc/01-about/
 [service template]: ./icinga2/check_masifupgrader_agent-service.conf
 [host example]: ./icinga2/check_masifupgrader_agent-host.conf
-[Icinga 2]: https://www.icinga.com/docs/icinga2/latest/doc/01-about/
 [Icinga 2 clusters]: https://www.icinga.com/docs/icinga2/latest/doc/06-distributed-monitoring/
 [hosts]: https://www.icinga.com/docs/icinga2/latest/doc/09-object-types/#host
 [endpoints]: https://www.icinga.com/docs/icinga2/latest/doc/09-object-types/#endpoint

@@ -58,6 +58,9 @@ export PKG_VERSION="${PKG_VERSION/v/}"
 export PKG_NAME="check_masifupgrader_agent"
 
 mkdir -p pkgroot/usr/lib/nagios/plugins
+mkdir -p pkgroot/usr/share/icinga2/include/plugins-contrib.d
+
+cp icinga2/check_masifupgrader_agent.conf pkgroot/usr/share/icinga2/include/plugins-contrib.d/
 
 
 #     LSBDISTID DEB_ARCH GO_ARCH  GO_ENV
